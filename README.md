@@ -4,6 +4,7 @@ A comprehensive vaccine scheduling system built with Laravel.
 This application is designed to manage user registration, login, vaccine appointment scheduling, and email notifications. It aims to provide a user-friendly platform for individuals to book vaccination slots efficiently.
 
 - This project is containerized with docker.
+- Using laravel service repository design pattern.
 - 20 Vaccine center are created with seeder.
 - Registration feature.
 - User login feature.
