@@ -1,0 +1,69 @@
+version: '3'
+services:
+
+  #Laravel App
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    image: kahf/laravel
+    container_name: kahf
+    restart: unless-stopped
+    ports:
+      - 9010:9010
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - kahf
+
+  #Nginx Service
+  nginx:
+    image: nginx:latest
+    container_name: kahf_nginx
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8080:80"
+      # - "443:443"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./docker/nginx/log/:/var/log/nginx/
+    networks:
+      - kahf
+    depends_on:
+      - app
+
+  db:
+    image: mysql:5.7
+    #platform: linux/amd64
+    container_name: kahf_db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: kahf
+      MYSQL_USER: kahf
+      MYSQL_PASSWORD: kahf
+      MYSQL_ROOT_PASSWORD: kahf
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql/
+    networks:
+      - kahf
+
+#Docker Networks
+networks:
+  kahf:
+    name: kahf
+    driver: bridge
+
+#Volumes
+volumes:
+  db:
+    driver: local

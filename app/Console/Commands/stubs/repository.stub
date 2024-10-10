@@ -1,0 +1,11 @@
+<?php
+
+namespace DummyNamespace;
+
+use Illuminate\Database\Eloquent\Model;
+use App\Repositories\RepositoryInterfaces\DummyClassInterface;
+
+class DummyClass implements DummyClassInterface
+{
+    // write code here
+}
