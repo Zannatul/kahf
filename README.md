@@ -67,6 +67,10 @@ This application is designed to manage user registration, login, vaccine appoint
     php artisan migrate
     php artisan db:seed
 
+- if face any problem related to FROM php:8.2-fpm-alpine then please run this command.
+- ```bash
+    rm  ~/.docker/config.json 
+
 ## Configuration
 - MAIL_MAILER=smtp
 - MAIL_HOST=smtp.mailgun.org
